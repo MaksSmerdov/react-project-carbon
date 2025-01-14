@@ -1,3 +1,6 @@
+@use '../../../styles/mixins' as mixins;
+@use '../../../styles/variables' as vars;
+
 .loaderContainer {
   position: fixed;
   top: 0;
@@ -44,7 +47,5 @@
 
 .loaderText {
   margin-top: 20px;
-  font-size: 24px;
-  font-weight: 600;
-  color: green;
+  @include mixins.text-style(24px, null, 600, vars.$hulk);
 }

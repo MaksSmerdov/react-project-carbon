@@ -43,7 +43,7 @@ const CurrentParameter: React.FC<CurrentParameterProps> = ({ config, title, show
 
   return (
     <div>
-      {showLoading && <Loader delay={1000} size={80} />}
+      {showLoading && <Loader delay={1000} size={100} />}
       <Header title={title} maxWidth="100%" />
       <div className={styles.tables}>
         {Object.entries(config.titles).map(([key, tableTitle]) => (
