@@ -1,0 +1,32 @@
+@use '../../../styles/mixins' as mixins;
+@use '../../../styles/variables' as vars;
+
+.mnemo {
+  &__kran {
+    position: absolute;
+    z-index: 1;
+
+    &-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background-color: vars.$white;
+    }
+  }
+
+  &__triangle1 {
+    width: 0;
+    height: 0;
+    border-top: 17px solid transparent;
+    border-left: 20px solid vars.$hulk;
+    border-bottom: 17px solid transparent;
+  }
+
+  &__triangle2 {
+    width: 0;
+    height: 0;
+    border-top: 17px solid transparent;
+    border-right: 20px solid vars.$hulk;
+    border-bottom: 17px solid transparent;
+  }
+}

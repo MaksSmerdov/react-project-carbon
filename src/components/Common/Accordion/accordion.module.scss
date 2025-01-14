@@ -1,0 +1,82 @@
+@use '../../../styles/mixins' as mixins;
+@use '../../../styles/variables' as vars;
+
+.accordionContainer {
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  // Таргетим глобальные классы Material-UI внутри контейнера
+  :global(.MuiAccordion-root) {
+    margin-bottom: 10px;
+    transition: margin-bottom 0.5s ease, box-shadow 0.5s ease;
+  }
+
+  :global(.MuiAccordionSummary-root) {
+    background-color: vars.$white-smoke;
+  }
+
+  :global(.MuiAccordionDetails-root) {
+    padding: 10px;
+    padding-bottom: 0;
+  }
+
+  // Дополнительно: Изменение тени при наведении и раскрытии
+  :global(.MuiAccordion-root:hover) {
+    box-shadow: 0 6px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.accordionDetails {
+  overflow: auto; // Добавляет прокрутку, если контент превышает размер
+  max-width: auto; // Установите максимальную высоту, чтобы контролировать размер
+}
+
+.list-reset {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.accordion {
+  &-item {
+    margin-bottom: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-link {
+    position: relative;
+    margin-right: 30px;
+    @include mixins.text-style(16px, 24px, 400, vars.$black);
+
+    &-container {
+      display: flex;
+      flex-shrink: 0;
+
+      &.active {
+        display: none;
+      }
+    }
+
+    &-download {
+      padding: 6px 10px;
+      text-decoration: none;
+      border: 2px solid vars.$hulk;
+      transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+      @include mixins.text-style(15px, 14px, 500, vars.$hulk);
+
+      &:nth-child(2) {
+        border-left: none !important;
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: vars.$hulk;
+        color: vars.$white;
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@use '../../styles/mixins' as mixins;
+@use '../../styles/variables' as vars;
+
+.chart-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.dynamic-graph {
+  &__btns {
+    margin-top: 20px;
+    display: flex;
+  }
+
+  &__btn {
+    margin-right: 10px;
+    height: 27px;
+    @include mixins.text-style(16px, 22px, 600, vars.$hulk);
+    border: 1px solid vars.$hulk;
+    background-color: transparent;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+
+    &:hover,
+    &:active,
+    &:focus-visible {
+      color: vars.$white;
+      background-color: vars.$hulk;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}
+
+.error-message {
+  @include mixins.text-style(26px, 24px, 600, vars.$red);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid vars.$red;
+  background-color: vars.$vanilla-strawberry;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center; // Центрирование по горизонтали
+  align-items: center; // Центрирование по вертикали
+}
+
+.interval-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 20px;
+
+  &__label {
+    font-size: 18px;
+    color: vars.$carbon;
+  }
+}

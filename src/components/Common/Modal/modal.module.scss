@@ -1,0 +1,82 @@
+@use '../../../styles/mixins' as mixins;
+@use '../../../styles/variables' as vars;
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); // Полупрозрачный чёрный фон
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; // Убедитесь, что модалка сверху
+  opacity: 0; // Начальное состояние
+  transition: opacity 0.5s ease; // Анимация появления
+
+  &AfterOpen {
+    opacity: 1; // Полностью видимый фон
+  }
+
+  &BeforeClose {
+    opacity: 0; // Скрытие перед закрытием
+  }
+}
+
+.modalPaper {
+  background-color: vars.$white;
+  padding: 5px 20px 20px 20px;
+  border-radius: 8px;
+  max-height: 600px; // Ограничиваем максимальную высоту
+  max-width: 650px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column; // Для разделения header и body
+  overflow: hidden;
+  transition: max-height 1s ease-in-out; // Анимация изменения высоты
+
+  &AfterOpen {
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &BeforeClose {
+    transform: scale(0.9);
+    transition: transform 0.3s ease-in-out;
+  }
+}
+
+.modalHeader {
+  height: 50px;
+  border-bottom: 1px solid vars.$steam;
+  margin-bottom: 10px;
+  position: relative; // Для позиционирования кнопки закрытия
+
+  .modalTitle {
+    @include mixins.text-style(24px, null, 600);
+    text-align: center;
+    flex: 1; // Заголовок занимает всё доступное пространство
+  }
+
+  .closeButton {
+    position: absolute;
+    top: 5px; // Располагаем кнопку по вертикали относительно контейнера
+    right: 0px; // Отступ от правого края
+    background: none;
+    border: none;
+    @include mixins.text-style(18px, null, null, vars.$hulk);
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(0, 128, 0, 0.1);
+      border-radius: 50%;
+    }
+  }
+}
+
+.modalContent {
+  flex: 1; // Контент занимает всё оставшееся место
+  overflow-y: auto; // Прокрутка при переполнении
+}

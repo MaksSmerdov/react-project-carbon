@@ -1,0 +1,19 @@
+@use '../../../styles/mixins' as mixins;
+@use '../../../styles/variables' as vars;
+
+.mnemo__level {
+  &-container {
+    width: 42px;
+    height: 85px;
+    bottom: 61.9%;
+    right: 69.8%;
+    position: absolute;
+    overflow: hidden;
+  }
+  &-fill {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    transition: height 0.3s ease;
+  }
+}

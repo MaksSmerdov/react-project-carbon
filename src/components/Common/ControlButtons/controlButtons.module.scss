@@ -1,0 +1,39 @@
+@use '../../../styles/mixins' as mixins;
+@use '../../../styles/variables' as vars;
+
+.paramBox {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+
+  &Btn {
+    padding: 5px !important;
+    border: 1px solid vars.$hulk !important;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    @include mixins.text-style(16px, 23px, 600, vars.$hulk);
+
+    &:hover {
+      color: vars.$white;
+      background-color: vars.$hulk;
+    }
+
+    &:active {
+      color: vars.$white;
+      background-color: vars.$hulk;
+    }
+
+    &:nth-child(2) {
+      border-left: none !important;
+    }
+  }
+}
+
+.btnReset {
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  outline: none;
+  appearance: none;
+}

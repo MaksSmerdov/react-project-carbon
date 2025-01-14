@@ -1,0 +1,459 @@
+@use '../../../styles/mixins' as mixins;
+@use '../../../styles/variables' as vars;
+
+.mnemo {
+  position: relative;
+  width: 1616px;
+  margin: 0 auto;
+  margin-top: 10px;
+
+  &__title {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1px;
+    text-align: center;
+    @include mixins.text-style(32px, 32px, 600, vars.$hulk);
+
+    &Span {
+      color: black;
+      @include mixins.text-style(22px, 30px, 600, black);
+    }
+  }
+
+  &__param {
+    padding: 2px;
+    margin: 0;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+    &.enabledHover {
+      &:hover {
+        background-color: green;
+
+        .mnemo__param-text {
+          color: white;
+        }
+      }
+
+      &:active {
+        box-shadow: 0 0 0 3px white, 0 0 0 6px green;
+
+        .mnemo__param-text {
+          color: white;
+        }
+      }
+    }
+
+    &-text {
+      @include mixins.text-style(16px, 16px, 600, vars.$blue);
+      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+
+    &-naimenov {
+      @include mixins.text-style(18px, 18px, 600, vars.$blue);
+    }
+
+    &-descr {
+      position: absolute;
+      z-index: 1;
+      text-align: center;
+      @include mixins.text-style(15px, 14px, 600, vars.$hunter-green);
+    }
+  }
+
+  &__img {
+    width: 1616px;
+    opacity: 1;
+  }
+}
+
+.mnemo__kranContainer {
+  position: absolute;
+  z-index: 1;
+  top: 7%;
+  left: 18%;
+}
+
+.mnemo__gif {
+  position: absolute;
+  z-index: 1;
+
+  &-1 {
+    top: 51.6%;
+    left: 12.2%;
+  }
+
+  &-2 {
+    top: 7%;
+    left: 95.8%;
+
+    & img {
+      width: 40px;
+      height: 90px;
+    }
+  }
+
+  &-3 {
+    top: 64.3%;
+    left: 88.1%;
+
+    & img {
+      width: 65px;
+      height: 60px;
+      animation: rotate 1s infinite linear;
+      animation-play-state: paused; /* Изначально анимация приостановлена */
+    }
+  }
+
+  &-4 {
+    top: 71.2%;
+    left: 11.3%;
+
+    & img {
+      width: 35px;
+      height: 30px;
+      animation: rotate 1s infinite linear;
+      animation-play-state: paused; /* Изначально анимация приостановлена */
+    }
+  }
+
+  &-5 {
+    top: 16.5%;
+    left: 19%;
+
+    & img {
+      transform: rotate(-65deg);
+    }
+  }
+
+  &-6 {
+    top: 9.8%;
+    left: 22.5%;
+
+    & img {
+      transform: rotate(-63deg);
+    }
+  }
+
+  &-7 {
+    top: 70%;
+    left: 72.5%;
+  }
+
+  &-8 {
+    top: 9.6%;
+    left: 29%;
+
+    & img {
+      transform: rotate(-63deg);
+    }
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.topka {
+  &_temper {
+    top: 36.5%;
+    left: 6%;
+  }
+  &_davl {
+    top: 42%;
+    left: 6%;
+  }
+  &Text {
+    top: 40.5%;
+    left: 1%;
+  }
+}
+
+.kamera {
+  &_smeshenia {
+    top: 44%;
+    left: 20%;
+  }
+  &_vigruzki {
+    top: 44%;
+    right: 23.5%;
+  }
+  &Text {
+    text-align: center;
+    top: 38%;
+    left: 19.1%;
+  }
+  &VigruzkiText {
+    text-align: center;
+    top: 38%;
+    right: 22.8%;
+  }
+}
+
+.uhod {
+  &_gazov {
+    top: 13%;
+    right: 21%;
+  }
+  &Text {
+    top: 8%;
+    right: 16.8%;
+  }
+}
+
+.vozduh {
+  &_razbavl {
+    top: 66%;
+    left: 10%;
+  }
+  &Text {
+    text-align: left;
+    top: 66%;
+    left: 1%;
+  }
+}
+
+.mosh {
+  &_gorelki {
+    top: 22%;
+    left: 130px;
+  }
+  &GorelkiText {
+    text-align: left;
+    top: 22%;
+    left: 1%;
+  }
+}
+
+.zadanie {
+  &_temper {
+    top: 29%;
+    left: 130px;
+  }
+  &TemperText {
+    text-align: left;
+    top: 29%;
+    left: 1%;
+  }
+}
+
+.barabanText {
+  top: 44%;
+  right: 50%;
+}
+
+.pluzdhSbrasyvatelText {
+  top: 12%;
+  left: 25%;
+}
+
+.liniyaParotushText {
+  top: 6%;
+  left: 30%;
+}
+
+.dymososText {
+  top: 60%;
+  right: 8%;
+}
+
+.gazText {
+  text-align: left;
+  top: 50%;
+  left: 1%;
+}
+
+@media (max-width: 1280px) {
+  .mnemo {
+    width: 976px;
+    position: relative;
+
+    &__img {
+      width: 976px;
+    }
+
+    &__param {
+      &-text {
+        @include mixins.text-style(10px, 10px, 600, vars.$blue);
+      }
+
+      &-naimenov {
+        @include mixins.text-style(10px, 10px, 600, vars.$blue);
+      }
+
+      &-descr {
+        @include mixins.text-style(10px, 10px, 600, vars.$hunter-green);
+      }
+    }
+
+    &__gif {
+      &-1 {
+        top: 50.5%;
+        left: 12%;
+      }
+
+      &-2 {
+        left: 95.7%;
+        & img {
+          width: 26px;
+          height: 55px;
+        }
+      }
+
+      &-3 {
+        top: 64.2%;
+        left: 88.2%;
+
+        & img {
+          width: 37px;
+          height: 35px;
+        }
+      }
+
+      &-4 {
+        top: 71%;
+        left: 11.4%;
+
+        & img {
+          width: 20px;
+          height: 18px;
+        }
+      }
+
+      &-5 {
+        top: 16.8%;
+        left: 18.6%;
+        & img {
+          width: 40px;
+        }
+      }
+
+      &-6 img,
+      &-8 img {
+        width: 56px;
+        height: 61px;
+      }
+
+      &-7 img {
+        width: 20px;
+      }
+    }
+  }
+
+  .topka {
+    &_temper {
+      top: 36.5%;
+      left: 5%;
+    }
+    &_davl {
+      top: 42%;
+      left: 5%;
+    }
+    &Text {
+      top: 40.5%;
+      left: 0%;
+    }
+  }
+
+  .kamera {
+    &_smeshenia {
+      top: 44%;
+      left: 20%;
+    }
+    &_vigruzki {
+      top: 44%;
+      right: 23%;
+    }
+    &Text {
+      text-align: center;
+      top: 38%;
+      left: 18.7%;
+    }
+    &VigruzkiText {
+      text-align: center;
+      top: 38%;
+      right: 22.3%;
+    }
+  }
+
+  .uhod {
+    &_gazov {
+      top: 12%;
+      right: 20%;
+    }
+    &Text {
+      top: 7%;
+      right: 15.5%;
+    }
+  }
+
+  .vozduh {
+    &_razbavl {
+      top: 64%;
+      left: 10%;
+    }
+    &Text {
+      text-align: left;
+      top: 64%;
+      left: 0%;
+    }
+  }
+
+  .mosh {
+    &_gorelki {
+      top: 20%;
+      left: 8%;
+    }
+    &GorelkiText {
+      text-align: left;
+      top: 20%;
+      left: 0%;
+    }
+  }
+
+  .zadanie {
+    &_temper {
+      top: 29%;
+      left: 8%;
+    }
+    &TemperText {
+      text-align: left;
+      top: 29%;
+      left: 0%;
+    }
+  }
+
+  .barabanText {
+    top: 44%;
+    right: 50%;
+  }
+
+  .pluzdhSbrasyvatelText {
+    top: 12%;
+    left: 25%;
+  }
+
+  .liniyaParotushText {
+    top: 6%;
+    left: 30%;
+  }
+
+  .dymososText {
+    top: 59%;
+    right: 7.8%;
+  }
+
+  .gazText {
+    text-align: left;
+    top: 50%;
+    left: 0%;
+  }
+}

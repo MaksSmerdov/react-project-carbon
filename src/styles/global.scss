@@ -1,0 +1,31 @@
+@use './mixins' as mixins;
+@use './variables' as vars;
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #dfdcdc;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: green;
+  border-radius: 20px;
+}
+
+// Defaults for body
+body {
+  font-family: "Bitter", sans-serif;
+  font-size: 16px;
+  color: #333;
+  background-color: white;
+  
+}
