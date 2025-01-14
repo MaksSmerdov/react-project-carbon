@@ -49,3 +49,29 @@
   margin-top: 20px;
   @include mixins.text-style(24px, null, 600, vars.$hulk);
 }
+
+/* Анимация для орбит */
+@keyframes orbitDash {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 50;
+  }
+}
+
+.orbit1,
+.orbit2,
+.orbit3 {
+  stroke-dasharray: 40, 10; /* Большой разрыв (80 - длина линии, 20 - длина разрыва) */
+  animation: orbitDash 1s linear infinite; /* Быстрая анимация без пауз */
+}
+
+.orbit2 {
+  animation-duration: 0.8s; /* Разная скорость для каждой орбиты */
+  animation-direction: reverse; /* Движение в обратном направлении */
+}
+
+.orbit3 {
+  animation-duration: 0.7s;
+}
