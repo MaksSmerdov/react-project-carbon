@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./table.module.scss";
+import styles from "./scss/table.module.scss";
 
 interface TableProps {
   title: string;

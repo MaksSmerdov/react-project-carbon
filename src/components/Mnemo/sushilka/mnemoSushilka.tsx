@@ -55,8 +55,10 @@ const MnemoSushilka = <K extends keyof typeof apiConfigs>({
           onOpenModal={() => setIsModalOpen(true)}
           top="0"
           left="0"
-          adaptiveTop="100px"
+          adaptiveTop="90px"
           adaptiveLeft="300px"
+          adaptiveFontSize="12px"
+          adaptiveLineHeight="10px"
         />
 
         <CustomModal isOpen={isModalOpen} title="Список документации" onClose={() => setIsModalOpen(false)}>
@@ -67,6 +69,7 @@ const MnemoSushilka = <K extends keyof typeof apiConfigs>({
 
         <Kran
           size={{ width: 40, height: 34 }}
+          adaptiveSize={{ width: 28, height: 20 }}
           status={Boolean(data.im?.['Индикация паротушения'])}
           orientation="vertical"
           top="40px"

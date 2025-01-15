@@ -3,11 +3,13 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'; // Импортируем стандартные стили
 import styles from './homePage.module.scss';
 import MnemoSushilka from '../components/Mnemo/sushilka/mnemoSushilka';
-import CurrentParameter from '../components/Current/currentParameter';
+import CurrentParameter from '../components/Current/sushilka/currentParameter';
 import { apiConfigs } from '../configs/apiConfigSushilka';
 import UniversalChart from '../components/Charts/chart';
 import { IntervalProvider } from '../components/Charts/context/intervalContext';
 import { getApiBaseUrl } from '../utils/apiUtils'; // Импортируем функцию
+import CurrentEnergyResources from '../components/Current/energyResources/currentEnergyResources';
+import ReportPage from '../components/Reports/Montly/monthlyReport';
 import Loader from '../components/Common/Preloader/preloader';
 
 const HomePage: React.FC = () => {
@@ -27,7 +29,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className={styles['container']}>
-      <Loader delay={1000} size={100} />
+      <Loader delay={3000} size={100} />
 
       <Tabs selectedIndex={selectedTabIndex} onSelect={handleTabChange}>
         <TabList className={styles['tab-list']}>
@@ -92,17 +94,17 @@ const HomePage: React.FC = () => {
                       params={[
                         {
                           key: 'Температура в топке',
-                          label: 'Температура в топке',
+                          label: 'В топке',
                           unit: '°C',
                         },
                         {
                           key: 'Температура в камере смешения',
-                          label: 'Температура в камере смешения',
+                          label: 'В камере смешения',
                           unit: '°C',
                         },
                         {
                           key: 'Температура уходящих газов',
-                          label: 'Температура уходящих газов',
+                          label: 'Уходящих газов',
                           unit: '°C',
                         },
                       ]}
@@ -118,17 +120,17 @@ const HomePage: React.FC = () => {
                       params={[
                         {
                           key: 'Температура в топке',
-                          label: 'Температура в топке',
+                          label: 'В топке',
                           unit: '°C',
                         },
                         {
                           key: 'Температура в камере смешения',
-                          label: 'Температура в камере смешения',
+                          label: 'В камере смешения',
                           unit: '°C',
                         },
                         {
                           key: 'Температура уходящих газов',
-                          label: 'Температура уходящих газов',
+                          label: 'Уходящих газов',
                           unit: '°C',
                         },
                       ]}
@@ -162,7 +164,7 @@ const HomePage: React.FC = () => {
                         },
                         {
                           key: 'Разрежение воздуха на разбавление',
-                          label: 'Разрежение воздуха на разбавление',
+                          label: 'Воздух на разбавление',
                           unit: 'кгс/м²',
                         },
                       ]}
@@ -188,7 +190,7 @@ const HomePage: React.FC = () => {
                         },
                         {
                           key: 'Разрежение воздуха на разбавление',
-                          label: 'Разрежение воздуха на разбавление',
+                          label: 'Воздух на разбавление',
                           unit: 'кгс/м²',
                         },
                       ]}
@@ -248,17 +250,17 @@ const HomePage: React.FC = () => {
                       params={[
                         {
                           key: 'Температура в топке',
-                          label: 'Температура в топке',
+                          label: 'В топке',
                           unit: '°C',
                         },
                         {
                           key: 'Температура в камере смешения',
-                          label: 'Температура в камере смешения',
+                          label: 'В камере смешения',
                           unit: '°C',
                         },
                         {
                           key: 'Температура уходящих газов',
-                          label: 'Температура уходящих газов',
+                          label: 'Уходящих газов',
                           unit: '°C',
                         },
                       ]}
@@ -274,17 +276,17 @@ const HomePage: React.FC = () => {
                       params={[
                         {
                           key: 'Температура в топке',
-                          label: 'Температура в топке',
+                          label: 'В топке',
                           unit: '°C',
                         },
                         {
                           key: 'Температура в камере смешения',
-                          label: 'Температура в камере смешения',
+                          label: 'В камере смешения',
                           unit: '°C',
                         },
                         {
                           key: 'Температура уходящих газов',
-                          label: 'Температура уходящих газов',
+                          label: 'Уходящих газов',
                           unit: '°C',
                         },
                       ]}
@@ -318,7 +320,7 @@ const HomePage: React.FC = () => {
                         },
                         {
                           key: 'Разрежение воздуха на разбавление',
-                          label: 'Разрежение воздуха на разбавление',
+                          label: 'Воздух на разбавление',
                           unit: 'кгс/м²',
                         },
                       ]}
@@ -344,7 +346,7 @@ const HomePage: React.FC = () => {
                         },
                         {
                           key: 'Разрежение воздуха на разбавление',
-                          label: 'Разрежение воздуха на разбавление',
+                          label: 'Воздух на разбавление',
                           unit: 'кгс/м²',
                         },
                       ]}
@@ -362,6 +364,9 @@ const HomePage: React.FC = () => {
             <Tabs selectedIndex={selectedSubTabIndex} onSelect={handleSubTabChange}>
               <TabList className={styles['sub-tab-list']}>
                 <Tab className={styles['sub-tab']} selectedClassName={styles['sub-tab--selected']}>
+                  Текущие параметры
+                </Tab>
+                <Tab className={styles['sub-tab']} selectedClassName={styles['sub-tab--selected']}>
                   Отчет суточный
                 </Tab>
                 <Tab className={styles['sub-tab']} selectedClassName={styles['sub-tab--selected']}>
@@ -372,14 +377,21 @@ const HomePage: React.FC = () => {
               {/* Панель мнемосхемы */}
               <TabPanel>
                 <div key={`energyresources-dayli-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
-                  <MnemoSushilka configKey="sushilka2" title="Сушилка №2" objectNumber={2} />
+                  <CurrentEnergyResources></CurrentEnergyResources>
                 </div>
               </TabPanel>
 
               {/* Панель текущих параметров */}
               <TabPanel>
                 <div key={`energyresources-monthly-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
-                  <CurrentParameter config={apiConfigs.sushilka2} title="Сушилка №2" />
+                  <ReportPage></ReportPage>
+                </div>
+              </TabPanel>
+
+              {/* Панель текущих параметров */}
+              <TabPanel>
+                <div key={`energyresources-monthly-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
+                  <ReportPage></ReportPage>
                 </div>
               </TabPanel>
             </Tabs>

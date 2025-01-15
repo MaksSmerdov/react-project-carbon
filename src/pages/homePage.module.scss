@@ -112,3 +112,22 @@
     transform: translateX(0);
   }
 }
+
+@media (max-width: 1280px) {
+
+  .tab {
+    padding: 5px 10px;
+    @include mixins.text-style(14px, 12px, 600);
+  }
+
+  .tab-content {
+    padding: 5px 20px;
+  }
+  
+  .sub-tab {
+    padding: 6px 10px;
+    @include mixins.text-style(12px, 10px, 600);
+
+  }
+
+}
