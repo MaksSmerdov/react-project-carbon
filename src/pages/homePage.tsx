@@ -10,6 +10,7 @@ import { IntervalProvider } from '../components/Charts/context/intervalContext';
 import { getApiBaseUrl } from '../utils/apiUtils'; // Импортируем функцию
 import CurrentEnergyResources from '../components/Current/energyResources/currentEnergyResources';
 import ReportPage from '../components/Reports/Montly/monthlyReport';
+import ReportDaily from '../components/Reports/Daily/dailyReport';
 import Loader from '../components/Common/Preloader/preloader';
 
 const HomePage: React.FC = () => {
@@ -384,7 +385,7 @@ const HomePage: React.FC = () => {
               {/* Панель текущих параметров */}
               <TabPanel>
                 <div key={`energyresources-monthly-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
-                  <ReportPage></ReportPage>
+                  <ReportDaily></ReportDaily>
                 </div>
               </TabPanel>
 

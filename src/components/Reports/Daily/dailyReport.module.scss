@@ -1,0 +1,106 @@
+.content {
+  position: relative;
+  max-width: 1450px;
+  padding-left: 10px;
+}
+
+.dynamic-report {
+  margin: 5px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dynamic-report__title-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.dynamic-report__title {
+  margin-bottom: 15px;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+  color: green;
+}
+
+
+.dynamic-report__btn:hover {
+  color: white;
+  background-color: green;
+}
+
+.dynamic-report__btn:active {
+  color: white;
+  background-color: green;
+}
+
+.dynamic-report__btn:focus-visible {
+  color: white;
+  background-color: green;
+  outline: none;
+}
+
+
+.dynamic-report__date-range {
+  position: relative;
+  max-width: 350px;
+}
+
+.dynamic-report__date-div {
+  gap: 40px;
+  display: flex;
+  align-items: center;
+}
+
+
+.dynamic-report__date-label {
+  margin-bottom: 10px;
+}
+
+.dynamic-report__date-input {
+  margin-right: 10px;
+  width: 150px;
+}
+
+/* table */
+.dynamic-report__table {
+  position: relative;
+}
+
+.dynamic-report__report-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Фиксированный макет таблицы */
+}
+
+.dynamic-report__report-header {
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 600;
+  color: white;
+  font-family: 'Bitter', sans-serif;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+  background-color: green;
+}
+
+.dynamic-report__report-table th,
+.dynamic-report__report-table td {
+  border: 1px solid #ddd;
+  padding: 2px;
+}
+
+.dynamic-report__report-table th:first-child,
+.dynamic-report__report-table td:first-child {
+  white-space: nowrap;
+}
+
+.dynamic-report__report-tr:hover {
+  background-color: #ddd;
+}
+
+.dynamic-report__report-tr:active {
+  background-color: #ddd;
+}
