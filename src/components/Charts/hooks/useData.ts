@@ -9,7 +9,7 @@ export interface GenericData {
   values: GenericReading; // Произвольные параметры
 }
 
-export const useData = (apiUrl: string, startTime: Date, endTime: Date) => {
+export const useData = (apiUrls: string | string[], startTime: Date, endTime: Date) => {
   const [data, setData] = useState<GenericData[]>([]);
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -17,14 +17,28 @@ export const useData = (apiUrl: string, startTime: Date, endTime: Date) => {
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `${apiUrl}?start=${startTime.toISOString()}&end=${endTime.toISOString()}`
+      // Если apiUrls — строка, преобразуем её в массив
+      const urls = Array.isArray(apiUrls) ? apiUrls : [apiUrls];
+
+      // Выполняем все запросы параллельно
+      const responses = await Promise.all(
+        urls.map(url =>
+          fetch(`${url}?start=${startTime.toISOString()}&end=${endTime.toISOString()}`)
+        )
       );
-      if (!response.ok) {
+
+      // Проверяем статус каждого ответа
+      const errors = responses.filter(response => !response.ok);
+      if (errors.length > 0) {
         throw new Error('Ошибка при получении данных');
       }
-      const result: GenericData[] = await response.json();
-      setData(result);
+
+      // Парсим JSON из всех ответов
+      const results: GenericData[][] = await Promise.all(responses.map(res => res.json()));
+
+      // Объединяем данные из всех API в один массив
+      const combinedData = results.flat();
+      setData(combinedData);
       setError(null); // Сбрасываем ошибку при успешном запросе
     } catch (err) {
       console.error('Ошибка при запросе данных:', err);
@@ -32,7 +46,7 @@ export const useData = (apiUrl: string, startTime: Date, endTime: Date) => {
     } finally {
       setIsLoading(false);
     }
-  }, [apiUrl, startTime, endTime]);
+  }, [apiUrls, startTime, endTime]);
 
   // Автоматический повторный запрос при ошибке
   useEffect(() => {

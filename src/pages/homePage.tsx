@@ -87,7 +87,7 @@ const HomePage: React.FC = () => {
                   <IntervalProvider>
                     <UniversalChart
                       id="chart-sushilka1"
-                      apiUrl={`${apiBaseUrl}/api/sushilka1/data`} // Используем базовый URL
+                      apiUrls={`${apiBaseUrl}/api/sushilka1/data`} // Используем базовый URL
                       title="График температур сушилки №1"
                       yMin={-315}
                       yMax={315}
@@ -113,7 +113,7 @@ const HomePage: React.FC = () => {
                     />
                     <UniversalChart
                       id="chart-sushilka2"
-                      apiUrl={`${apiBaseUrl}/api/sushilka2/data`} // Используем базовый URL
+                      apiUrls={`${apiBaseUrl}/api/sushilka2/data`} // Используем базовый URL
                       title="График температур сушилки №2"
                       yMin={-315}
                       yMax={315}
@@ -147,7 +147,7 @@ const HomePage: React.FC = () => {
                   <IntervalProvider>
                     <UniversalChart
                       id="chart-sushilka1"
-                      apiUrl={`${apiBaseUrl}/api/sushilka1/data`} // Используем базовый URL
+                      apiUrls={`${apiBaseUrl}/api/sushilka1/data`} // Используем базовый URL
                       title="График давления/разрежения сушилки №1"
                       yMin={-20}
                       yMax={30}
@@ -173,7 +173,7 @@ const HomePage: React.FC = () => {
                     />
                     <UniversalChart
                       id="chart-sushilka2"
-                      apiUrl={`${apiBaseUrl}/api/sushilka2/data`} // Используем базовый URL
+                      apiUrls={`${apiBaseUrl}/api/sushilka2/data`} // Используем базовый URL
                       title="График давления/разрежения сушилки №2"
                       yMin={-20}
                       yMax={30}
@@ -243,7 +243,7 @@ const HomePage: React.FC = () => {
                   <IntervalProvider>
                     <UniversalChart
                       id="chart-sushilka1"
-                      apiUrl={`${apiBaseUrl}/api/sushilka1/data`} // Используем базовый URL
+                      apiUrls={`${apiBaseUrl}/api/sushilka1/data`} // Используем базовый URL
                       title="График температур сушилки №1"
                       yMin={-315}
                       yMax={315}
@@ -269,7 +269,7 @@ const HomePage: React.FC = () => {
                     />
                     <UniversalChart
                       id="chart-sushilka2"
-                      apiUrl={`${apiBaseUrl}/api/sushilka2/data`} // Используем базовый URL
+                      apiUrls={`${apiBaseUrl}/api/sushilka2/data`} // Используем базовый URL
                       title="График температур сушилки №2"
                       yMin={-315}
                       yMax={315}
@@ -303,7 +303,7 @@ const HomePage: React.FC = () => {
                   <IntervalProvider>
                     <UniversalChart
                       id="chart-sushilka1"
-                      apiUrl={`${apiBaseUrl}/api/sushilka1/data`} // Используем базовый URL
+                      apiUrls={`${apiBaseUrl}/api/sushilka1/data`} // Используем базовый URL
                       title="График давления/разрежения сушилки №1"
                       yMin={-20}
                       yMax={30}
@@ -329,7 +329,7 @@ const HomePage: React.FC = () => {
                     />
                     <UniversalChart
                       id="chart-sushilka2"
-                      apiUrl={`${apiBaseUrl}/api/sushilka2/data`} // Используем базовый URL
+                      apiUrls={`${apiBaseUrl}/api/sushilka2/data`} // Используем базовый URL
                       title="График давления/разрежения сушилки №2"
                       yMin={-20}
                       yMax={30}
@@ -387,7 +387,7 @@ const HomePage: React.FC = () => {
 
               <TabPanel>
                 <div key={`energyresources-chartRashod-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
-                  {/* <IntervalProvider>
+                  <IntervalProvider>
                     <UniversalChart
                       id="chart-rashodPar"
                       apiUrls={[
@@ -405,6 +405,7 @@ const HomePage: React.FC = () => {
                         { key: 'Тонн/ч DD973', label: 'МПА4', unit: 'тонн/ч' },
                       ]}
                       showIntervalSelector={true}
+                      animationEnabled={false}
                     />
                     <UniversalChart
                       id="chart-davleniePar"
@@ -429,11 +430,11 @@ const HomePage: React.FC = () => {
                         { key: 'Давление DD569', label: 'От к.265 - к.10в1', unit: 'MPa' },
                         { key: 'Давление DD923', label: 'Котел утилизатор №1', unit: 'MPa' },
                         { key: 'Давление DD924', label: 'Котел утилизатор №2', unit: 'MPa' },
-
                       ]}
                       showIntervalSelector={false}
+                      animationEnabled={false}
                     />
-                  </IntervalProvider> */}
+                  </IntervalProvider>
                 </div>
               </TabPanel>
 

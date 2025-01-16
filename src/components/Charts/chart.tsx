@@ -34,7 +34,7 @@ ChartJS.register(
 );
 
 interface UniversalChartProps {
-  apiUrl: string;
+  apiUrls: string | string[]; // Может быть строкой или массивом строк
   title: string;
   yMin?: number;
   yMax?: number;
@@ -44,6 +44,7 @@ interface UniversalChartProps {
   height?: number | string;
   id: string;
   showIntervalSelector?: boolean;
+  animationEnabled?: boolean; // Новый пропс для управления анимацией
 }
 
 interface GenericData {
@@ -67,7 +68,7 @@ const fetchServerTime = async (): Promise<number> => {
 };
 
 const UniversalChart: React.FC<UniversalChartProps> = ({
-  apiUrl,
+  apiUrls,
   title,
   yMin,
   yMax,
@@ -77,13 +78,14 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
   height = '400px',
   id,
   showIntervalSelector = true,
+  animationEnabled = true, // Значение по умолчанию true
 }) => {
   const [timeDifference, setTimeDifference] = useState<number>(0);
   const chartRef = useRef<ChartJS<'line'> | null>(null);
   const { interval } = useInterval();
   const [startTime, setStartTime] = useState(new Date(Date.now() - interval * 60 * 1000));
   const [endTime, setEndTime] = useState(new Date());
-  const { data, error, refetch } = useData(apiUrl, startTime, endTime);
+  const { data, error, refetch } = useData(apiUrls, startTime, endTime);
   const [allHidden, setAllHidden] = useState(false);
   const [isAutoScroll, setIsAutoScroll] = useState(true);
   const [lastInteractionTime, setLastInteractionTime] = useState(Date.now());
@@ -130,7 +132,8 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
     params,
     yMin,
     yMax,
-  ), [startTime, endTime, title, isAutoScroll, params, yMin, yMax]);
+    animationEnabled // Передаем значение пропса в настройки графика
+  ), [startTime, endTime, title, isAutoScroll, params, yMin, yMax, animationEnabled]);
 
   const handleBackwardWithInteraction = useCallback(() => {
     setLastInteractionTime(Date.now());

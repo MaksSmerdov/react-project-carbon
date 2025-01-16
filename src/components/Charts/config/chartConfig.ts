@@ -25,9 +25,11 @@ export const getChartOptions = (
     params: { key: string; label: string; unit?: string }[],
     yMin?: number,
     yMax?: number,
+    animationEnabled: boolean = true, // Новый параметр для управления анимацией
 ): ChartOptions<'line'> => ({
     responsive: true,
     maintainAspectRatio: false,
+    animation: animationEnabled ? {} : false, // Управление анимацией
     interaction: {
         mode: 'index',
         intersect: false,
@@ -50,21 +52,23 @@ export const getChartOptions = (
             display: true,
             position: 'right',
             labels: {
-                generateLabels: (chart) => {
-                    return chart.data.datasets.map((dataset, index) => {
-                        const value = dataset.data.length ? dataset.data[dataset.data.length - 1] : '';
-                        const label = dataset.label || '';
-                        const unit = params[index]?.unit || ''; 
-                        return {
-                            text: `${value} ${unit} | ${label}`,
-                            fillStyle: dataset.borderColor as string,
-                            hidden: !chart.isDatasetVisible(index),
-                            datasetIndex: index,
-                        };
-                    });
-                },
+              generateLabels: (chart) => {
+                return chart.data.datasets.map((dataset, index) => {
+                  const lastValue = dataset.data.reduce((prev, curr) => {
+                    return curr !== null ? curr : prev;
+                  }, null);
+                  const label = dataset.label || '';
+                  const unit = params[index]?.unit || '';
+                  return {
+                    text: `${lastValue !== null ? lastValue + ' ' + unit : 'Нет данных'} | ${label}`,
+                    fillStyle: dataset.borderColor as string,
+                    hidden: !chart.isDatasetVisible(index),
+                    datasetIndex: index,
+                  };
+                });
+              },
             },
-        },
+          },
         tooltip: {
             enabled: true,
             callbacks: {
