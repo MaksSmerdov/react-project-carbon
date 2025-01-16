@@ -54,7 +54,7 @@ export const useData = (apiUrls: string | string[], startTime: Date, endTime: Da
       if (error) {
         fetchData(); // Повторяем запрос, если есть ошибка
       }
-    }, 5000); // Интервал повторного запроса (например, каждые 5 секунд)
+    }, 10000); // Интервал повторного запроса (например, каждые 5 секунд)
 
     return () => clearInterval(intervalId);
   }, [error, fetchData]);

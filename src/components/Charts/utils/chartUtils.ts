@@ -3,11 +3,12 @@ export const handleBackward = (
   endTime: Date,
   setStartTime: (time: Date) => void,
   setEndTime: (time: Date) => void,
-  setIsAutoScroll: (autoScroll: boolean) => void
+  setIsAutoScroll: (autoScroll: boolean) => void,
+  interval: number // Добавляем параметр интервала
 ) => {
   setIsAutoScroll(false);
-  const newStartTime = new Date(startTime.getTime() - 10 * 60 * 1000);
-  const newEndTime = new Date(endTime.getTime() - 10 * 60 * 1000);
+  const newStartTime = new Date(startTime.getTime() - interval * 60 * 1000); // Используем интервал
+  const newEndTime = new Date(endTime.getTime() - interval * 60 * 1000); // Используем интервал
   setStartTime(newStartTime);
   setEndTime(newEndTime);
 };
@@ -17,10 +18,11 @@ export const handleForward = (
   endTime: Date,
   setStartTime: (time: Date) => void,
   setEndTime: (time: Date) => void,
-  setIsAutoScroll: (autoScroll: boolean) => void
+  setIsAutoScroll: (autoScroll: boolean) => void,
+  interval: number // Добавляем параметр интервала
 ) => {
-  const newStartTime = new Date(startTime.getTime() + 10 * 60 * 1000);
-  const newEndTime = new Date(endTime.getTime() + 10 * 60 * 1000);
+  const newStartTime = new Date(startTime.getTime() + interval * 60 * 1000); // Используем интервал
+  const newEndTime = new Date(endTime.getTime() + interval * 60 * 1000); // Используем интервал
   setStartTime(newStartTime);
   setEndTime(newEndTime);
 
