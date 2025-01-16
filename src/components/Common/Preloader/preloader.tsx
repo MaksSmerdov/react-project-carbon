@@ -4,9 +4,10 @@ import styles from './preloader.module.scss';
 interface LoaderProps {
   delay?: number; // Задержка перед исчезновением прелоудера (в миллисекундах)
   size?: number; // Размер прелоудера
+  fullPage?: boolean;
 }
 
-const Loader: React.FC<LoaderProps> = ({ delay = 1000, size = 60 }) => {
+const Loader: React.FC<LoaderProps> = ({ delay = 1000, size = 60, fullPage = true }) => {
   const [isVisible, setIsVisible] = useState(true); // Состояние видимости прелоудера
 
   useEffect(() => {
@@ -19,7 +20,7 @@ const Loader: React.FC<LoaderProps> = ({ delay = 1000, size = 60 }) => {
   if (!isVisible) return null;
 
   return (
-    <div className={styles.loaderContainer}>
+    <div className={`${styles.loaderContainer} ${fullPage ? styles.fullPage : ''}`}>
       <div className={styles.reactLogo} style={{ width: size, height: size }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

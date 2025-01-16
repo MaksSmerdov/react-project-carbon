@@ -148,7 +148,7 @@ const ReportPage: React.FC = () => {
       >
         <PasswordForm
           onConfirm={handlePasswordConfirm}
-          correctPassword="correctPassword"
+          correctPassword="123"
           errorMessage={errorMessage}
           onError={setErrorMessage}
         />

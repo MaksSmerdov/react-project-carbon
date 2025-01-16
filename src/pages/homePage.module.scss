@@ -84,7 +84,8 @@
   border-top: none;
   background-color: vars.$white;
   border-radius: 0 0 10px 10px;
-  animation: fadeIn 0.5s ease; 
+  animation: fadeIn 0.5s ease;
+  overflow: hidden; // Скрываем содержимое, которое выходит за пределы контейнера
 }
 
 .sub-tab-content {

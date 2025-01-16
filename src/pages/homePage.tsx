@@ -368,6 +368,10 @@ const HomePage: React.FC = () => {
                   Текущие параметры
                 </Tab>
                 <Tab className={styles['sub-tab']} selectedClassName={styles['sub-tab--selected']}>
+                  Графики энергоресурсов
+                </Tab>
+
+                <Tab className={styles['sub-tab']} selectedClassName={styles['sub-tab--selected']}>
                   Отчет суточный
                 </Tab>
                 <Tab className={styles['sub-tab']} selectedClassName={styles['sub-tab--selected']}>
@@ -375,21 +379,70 @@ const HomePage: React.FC = () => {
                 </Tab>
               </TabList>
 
-              {/* Панель мнемосхемы */}
               <TabPanel>
-                <div key={`energyresources-dayli-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
+                <div key={`energyresources-current-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
                   <CurrentEnergyResources></CurrentEnergyResources>
                 </div>
               </TabPanel>
 
-              {/* Панель текущих параметров */}
               <TabPanel>
-                <div key={`energyresources-monthly-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
+                <div key={`energyresources-chartRashod-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
+                  {/* <IntervalProvider>
+                    <UniversalChart
+                      id="chart-rashodPar"
+                      apiUrls={[
+                        `${apiBaseUrl}/api/DE093/data`,
+                        `${apiBaseUrl}/api/DD972/data`,
+                        `${apiBaseUrl}/api/DD973/data`,
+                      ]}
+                      title="График расхода пара на МПА"
+                      yMin={0}
+                      yMax={5}
+                      dataKey="data"
+                      params={[
+                        { key: 'Тонн/ч DE093', label: 'МПА2', unit: 'тонн/ч' },
+                        { key: 'Тонн/ч DD972', label: 'МПА3', unit: 'тонн/ч' },
+                        { key: 'Тонн/ч DD973', label: 'МПА4', unit: 'тонн/ч' },
+                      ]}
+                      showIntervalSelector={true}
+                    />
+                    <UniversalChart
+                      id="chart-davleniePar"
+                      apiUrls={[
+                        `${apiBaseUrl}/api/DE093/data`,
+                        `${apiBaseUrl}/api/DD972/data`,
+                        `${apiBaseUrl}/api/DD973/data`,
+                        `${apiBaseUrl}/api/DD576/data`,
+                        `${apiBaseUrl}/api/DD569/data`,
+                        `${apiBaseUrl}/api/DD923/data`,
+                        `${apiBaseUrl}/api/DD924/data`
+                      ]}
+                      title="График давления пара производства CARBON"
+                      yMin={0}
+                      yMax={100}
+                      dataKey="data"
+                      params={[
+                        { key: 'Давление DE093', label: 'МПА2', unit: 'MPa' },
+                        { key: 'Давление DD972', label: 'МПА3', unit: 'MPa' },
+                        { key: 'Давление DD973', label: 'МПА4', unit: 'MPa' },
+                        { key: 'Давление DD576', label: 'к.10в1', unit: 'MPa' },
+                        { key: 'Давление DD569', label: 'От к.265 - к.10в1', unit: 'MPa' },
+                        { key: 'Давление DD923', label: 'Котел утилизатор №1', unit: 'MPa' },
+                        { key: 'Давление DD924', label: 'Котел утилизатор №2', unit: 'MPa' },
+
+                      ]}
+                      showIntervalSelector={false}
+                    />
+                  </IntervalProvider> */}
+                </div>
+              </TabPanel>
+
+              <TabPanel>
+                <div key={`energyresources-daily-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
                   <ReportDaily></ReportDaily>
                 </div>
               </TabPanel>
 
-              {/* Панель текущих параметров */}
               <TabPanel>
                 <div key={`energyresources-monthly-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
                   <ReportPage></ReportPage>

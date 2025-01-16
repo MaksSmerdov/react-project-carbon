@@ -1,3 +1,6 @@
+@use '../../../styles/mixins' as mixins;
+@use '../../../styles/variables' as vars;
+
 .content {
   position: relative;
   max-width: 1450px;
@@ -13,7 +16,8 @@
 .dynamic-report__title-content {
   display: flex;
   justify-content: space-between;
-  gap: 30px;
+  align-items: center; 
+  text-align: center;
 }
 
 .dynamic-report__title {
@@ -24,54 +28,27 @@
   color: green;
 }
 
-
-.dynamic-report__btn:hover {
-  color: white;
-  background-color: green;
-}
-
-.dynamic-report__btn:active {
-  color: white;
-  background-color: green;
-}
-
-.dynamic-report__btn:focus-visible {
-  color: white;
-  background-color: green;
-  outline: none;
-}
-
-
 .dynamic-report__date-range {
   position: relative;
   max-width: 350px;
 }
 
 .dynamic-report__date-div {
-  gap: 40px;
   display: flex;
   align-items: center;
 }
 
-
-.dynamic-report__date-label {
-  margin-bottom: 10px;
-}
-
-.dynamic-report__date-input {
-  margin-right: 10px;
-  width: 150px;
-}
-
-/* table */
+/* Стили для таблицы */
 .dynamic-report__table {
-  position: relative;
+  position: relative; // Для корректного позиционирования Loader
+  width: 100%;
+  min-height: 200px; // Временная высота для отладки
 }
 
 .dynamic-report__report-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed; /* Фиксированный макет таблицы */
+  table-layout: fixed; // Фиксированный макет таблицы
 }
 
 .dynamic-report__report-header {
@@ -79,7 +56,6 @@
   line-height: 14px;
   font-weight: 600;
   color: white;
-  font-family: 'Bitter', sans-serif;
   padding: 10px;
   text-align: center;
   border: 1px solid #ddd;
@@ -103,4 +79,39 @@
 
 .dynamic-report__report-tr:active {
   background-color: #ddd;
+}
+
+.dynamic-report__report-cell {
+  text-align: center;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+  color: black;
+}
+
+/* Стили для Loader */
+.loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 1); // Белый фон без прозрачности
+  z-index: 10; // Высокий z-index, чтобы быть поверх таблицы
+}
+
+/* Стили для сообщения об ошибке */
+.error-message {
+  @include mixins.text-style(26px, 24px, 600, vars.$red);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid vars.$red;
+  background-color: vars.$vanilla-strawberry;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center; // Центрирование по горизонтали
+  align-items: center; // Центрирование по вертикали
 }
