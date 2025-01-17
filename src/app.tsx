@@ -4,7 +4,7 @@ import CurrentParameterSushilka1 from './pages/sushilki/currentParam/currentPara
 import CurrentParameterSushilka2 from './pages/sushilki/currentParam/currentParam-sushilka2';
 import MnemoSushilka1 from './pages/sushilki/mnemo/mnemo-sushilka1';
 import MnemoSushilka2 from './pages/sushilki/mnemo/mnemo-sushilka2';
-import HomePage from './pages/homePage'; // Импортируем стартовую страницу
+import HomePage from './pages/home/homePage';
 
 const App: React.FC = () => {
   return (

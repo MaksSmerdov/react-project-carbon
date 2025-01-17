@@ -23,7 +23,6 @@ export interface Totals {
 
 const apiBaseUrl = getApiBaseUrl();
 
-// Загрузка данных за выбранный месяц
 export const loadDataForSelectedMonth = async (selectedMonth: Date | null) => {
   if (!selectedMonth) {
     alert('Пожалуйста, выберите месяц.');
@@ -72,7 +71,7 @@ export const loadDataForSelectedMonth = async (selectedMonth: Date | null) => {
   }
 };
 
-// Расчет итоговых значений
+// Расчет  значений
 export const calculateTotals = (data: ReportData[]) => {
   return {
     DE093: calculateTotal(data, 'DE093'),

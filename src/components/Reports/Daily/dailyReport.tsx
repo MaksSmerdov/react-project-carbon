@@ -90,7 +90,7 @@ const ReportDaily: React.FC = () => {
   const totals = calculateTotals(reportData);
   const noData = reportData.length === 0 || hasNoData(reportData);
   const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date || new Date()); // Если date === null, используем новую дату
+    setSelectedDate(date || new Date()); 
   };
   
   return (

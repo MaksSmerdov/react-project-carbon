@@ -20,7 +20,7 @@ const ReportMonthly: React.FC = () => {
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState<boolean>(false);
   const [isNoChangesModalOpen, setIsNoChangesModalOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [connectionError, setConnectionError] = useState<boolean>(false); // Новое состояние для ошибки соединения
+  const [connectionError, setConnectionError] = useState<boolean>(false);
   const [totals, setTotals] = useState({
     DE093: 0,
     DD972: 0,
@@ -45,7 +45,7 @@ const ReportMonthly: React.FC = () => {
 
     setIsLoading(true);
     setErrorMessage('');
-    setConnectionError(false); // Сбрасываем ошибку соединения перед загрузкой данных
+    setConnectionError(false); 
 
     try {
       const data = await loadDataForSelectedMonth(selectedMonth);
@@ -54,7 +54,7 @@ const ReportMonthly: React.FC = () => {
       setTotals(calculateTotals(data));
     } catch (error) {
       console.error('Ошибка при загрузке данных:', error);
-      setConnectionError(true); // Устанавливаем ошибку соединения
+      setConnectionError(true); 
       setErrorMessage('Произошла ошибка при загрузке данных. Попробуйте позже.');
     } finally {
       setIsLoading(false);
@@ -104,7 +104,7 @@ const ReportMonthly: React.FC = () => {
     <div className={styles.content}>
       <div className={styles['dynamic-report']}>
         <MonthlyReportHeader selectedMonth={selectedMonth} onDateChange={setSelectedMonth} />
-        {connectionError ? ( // Отображаем сообщение об ошибке, если connectionError === true
+        {connectionError ? (
           <div className={styles['error-message']}>Отсутствует связь с сервером.</div>
         ) : (
           <MonthlyReportTable

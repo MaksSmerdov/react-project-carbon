@@ -1,4 +1,3 @@
-// Миксин для текстовых стилей
 @mixin text-style($font-size: null, $line-height: null, $font-weight: null, $color: null) {
   font-size: $font-size;
   line-height: $line-height;

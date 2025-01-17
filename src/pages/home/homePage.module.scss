@@ -1,5 +1,6 @@
-@use '../styles/mixins' as mixins;
-@use '../styles/variables' as vars;
+@use '../../styles/mixins' as mixins;
+@use '../../styles/variables' as vars;
+
 
 .container {
   padding: 20px;
@@ -85,7 +86,7 @@
   background-color: vars.$white;
   border-radius: 0 0 10px 10px;
   animation: fadeIn 0.5s ease;
-  overflow: hidden; // Скрываем содержимое, которое выходит за пределы контейнера
+  overflow: hidden; 
 }
 
 .sub-tab-content {

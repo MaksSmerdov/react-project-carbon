@@ -7,7 +7,6 @@ import "./styles/fonts.scss"
 
 const rootElement = document.getElementById("root");
 
-// Проверяем, существует ли элемент с id "root"
 if (!rootElement) {
   throw new Error("Не удалось найти элемент с id 'root'");
 }
