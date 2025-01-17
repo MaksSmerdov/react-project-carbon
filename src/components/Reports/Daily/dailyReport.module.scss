@@ -11,85 +11,72 @@
   margin: 5px 30px;
   display: flex;
   flex-direction: column;
+
+  &__title-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__title {
+    margin-bottom: 15px;
+    @include mixins.text-style(24px, 32px, 600, vars.$hulk);
+  }
+
+  &__date-range {
+    position: relative;
+    max-width: 350px;
+  }
+
+  &__date-div {
+    display: flex;
+    align-items: center;
+  }
+
+  &__table {
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+  }
+
+  &__report-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    th,
+    td {
+      border: 1px solid vars.$steam;
+      padding: 2px;
+    }
+
+    th:first-child,
+    td:first-child {
+      white-space: nowrap;
+    }
+
+    th {
+      @include mixins.text-style(14px, 14px, 600, vars.$white);
+      padding: 10px;
+      text-align: center;
+      background-color: vars.$hulk;
+    }
+
+    tr {
+      &:hover,
+      &:active {
+        background-color: vars.$steam;
+      }
+    }
+
+    .dynamic-report__report-cell {
+      text-align: center;
+      @include mixins.text-style(16px, 16px, 400, vars.$black);
+    }
+  }
 }
 
-.dynamic-report__title-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; 
-  text-align: center;
-}
-
-.dynamic-report__title {
-  margin-bottom: 15px;
-  font-size: 24px;
-  line-height: 32px;
-  font-weight: 600;
-  color: green;
-}
-
-.dynamic-report__date-range {
-  position: relative;
-  max-width: 350px;
-}
-
-.dynamic-report__date-div {
-  display: flex;
-  align-items: center;
-}
-
-/* Стили для таблицы */
-.dynamic-report__table {
-  position: relative; // Для корректного позиционирования Loader
-  width: 100%;
-  min-height: 200px; // Временная высота для отладки
-}
-
-.dynamic-report__report-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed; // Фиксированный макет таблицы
-}
-
-.dynamic-report__report-header {
-  font-size: 14px;
-  line-height: 14px;
-  font-weight: 600;
-  color: white;
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ddd;
-  background-color: green;
-}
-
-.dynamic-report__report-table th,
-.dynamic-report__report-table td {
-  border: 1px solid #ddd;
-  padding: 2px;
-}
-
-.dynamic-report__report-table th:first-child,
-.dynamic-report__report-table td:first-child {
-  white-space: nowrap;
-}
-
-.dynamic-report__report-tr:hover {
-  background-color: #ddd;
-}
-
-.dynamic-report__report-tr:active {
-  background-color: #ddd;
-}
-
-.dynamic-report__report-cell {
-  text-align: center;
-  font-size: 16px;
-  line-height: 16px;
-  font-weight: 400;
-  color: black;
-}
-
-/* Стили для Loader */
 .loader-overlay {
   position: absolute;
   top: 0;
@@ -99,11 +86,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 1); // Белый фон без прозрачности
-  z-index: 10; // Высокий z-index, чтобы быть поверх таблицы
+  background-color: rgba(255, 255, 255, 1);
+  z-index: 10;
 }
 
-/* Стили для сообщения об ошибке */
 .error-message {
   @include mixins.text-style(26px, 24px, 600, vars.$red);
   text-align: center;
@@ -112,6 +98,6 @@
   background-color: vars.$vanilla-strawberry;
   margin: 20px 0;
   display: flex;
-  justify-content: center; // Центрирование по горизонтали
-  align-items: center; // Центрирование по вертикали
+  justify-content: center;
+  align-items: center;
 }

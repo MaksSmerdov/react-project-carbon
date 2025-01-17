@@ -8,12 +8,12 @@ interface LoaderProps {
 }
 
 const Loader: React.FC<LoaderProps> = ({ delay = 1000, size = 60, fullPage = true }) => {
-  const [isVisible, setIsVisible] = useState(true); // Состояние видимости прелоудера
+  const [isVisible, setIsVisible] = useState(true); 
 
   useEffect(() => {
     // Устанавливаем таймер для скрытия прелоудера через указанную задержку
     const timer = setTimeout(() => setIsVisible(false), delay);
-    return () => clearTimeout(timer); // Очистка таймера при размонтировании
+    return () => clearTimeout(timer); 
   }, [delay]);
 
   // Если прелоудер не видим, возвращаем null

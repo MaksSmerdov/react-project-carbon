@@ -9,7 +9,7 @@ import UniversalChart from '../components/Charts/chart';
 import { IntervalProvider } from '../components/Charts/context/intervalContext';
 import { getApiBaseUrl } from '../utils/apiUtils'; // Импортируем функцию
 import CurrentEnergyResources from '../components/Current/energyResources/currentEnergyResources';
-import ReportPage from '../components/Reports/Montly/monthlyReport';
+import ReportMonthly from '../components/Reports/Montly/monthlyReport';
 import ReportDaily from '../components/Reports/Daily/dailyReport';
 import Loader from '../components/Common/Preloader/preloader';
 
@@ -446,7 +446,7 @@ const HomePage: React.FC = () => {
 
               <TabPanel>
                 <div key={`energyresources-monthly-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
-                  <ReportPage></ReportPage>
+                  <ReportMonthly></ReportMonthly>
                 </div>
               </TabPanel>
             </Tabs>

@@ -20,6 +20,7 @@ import { handleBackward, handleForward, handleReturnToCurrent, createDataWithGap
 import IntervalSelector from './intervalSelector';
 import { useInterval } from './context/intervalContext';
 import { getApiBaseUrl } from '../../utils/apiUtils';
+import Loader from '../Common/Preloader/preloader';
 
 ChartJS.register(
   LineElement,
@@ -34,7 +35,7 @@ ChartJS.register(
 );
 
 interface UniversalChartProps {
-  apiUrls: string | string[]; // Может быть строкой или массивом строк
+  apiUrls: string | string[]; 
   title: string;
   yMin?: number;
   yMax?: number;
@@ -44,7 +45,7 @@ interface UniversalChartProps {
   height?: number | string;
   id: string;
   showIntervalSelector?: boolean;
-  animationEnabled?: boolean; // Новый пропс для управления анимацией
+  animationEnabled?: boolean;
 }
 
 interface GenericData {
@@ -85,11 +86,12 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
   const { interval } = useInterval();
   const [startTime, setStartTime] = useState(new Date(Date.now() - interval * 60 * 1000));
   const [endTime, setEndTime] = useState(new Date());
-  const { data, error, refetch } = useData(apiUrls, startTime, endTime);
+  const { data, error, refetch, isLoading: isDataLoading } = useData(apiUrls, startTime, endTime); 
   const [allHidden, setAllHidden] = useState(false);
   const [isAutoScroll, setIsAutoScroll] = useState(true);
   const [lastInteractionTime, setLastInteractionTime] = useState(Date.now());
   const [timeOffset, setTimeOffset] = useState(0);
+  const [isLoading, setIsLoading] = useState(true); 
 
   useEffect(() => {
     fetchServerTime().then((difference) => {
@@ -140,7 +142,7 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
         params,
         yMin,
         yMax,
-        animationEnabled // Передаем значение пропса в настройки графика
+        animationEnabled 
       ),
     [endTime, title, isAutoScroll, params, yMin, yMax, animationEnabled]
   );
@@ -169,7 +171,7 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
     if (chartRef.current) {
       const meta = chartRef.current.getDatasetMeta(index);
       meta.hidden = !meta.hidden;
-      chartRef.current.update('none'); // Обновляем без анимации
+      chartRef.current.update('none'); 
     }
   }, []);
 
@@ -181,7 +183,7 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
           meta.hidden = !allHidden;
         }
       });
-      chartRef.current.update('none'); // Обновляем без анимации
+      chartRef.current.update('none');
     }
     setAllHidden(!allHidden);
   }, [allHidden]);
@@ -216,15 +218,26 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
     return () => clearInterval(intervalId);
   }, [lastInteractionTime, isAutoScroll, interval, setStartTime, setEndTime, setIsAutoScroll]);
 
+  // Управление состоянием прелоадера
+  useEffect(() => {
+    if (!isDataLoading && data.length > 0) {
+      setIsLoading(false); 
+    }
+  }, [isDataLoading, data]);
+
   return (
     <div className={styles['chart-container']}>
       {showIntervalSelector && <IntervalSelector />}
 
-      {error ? (
+      {isLoading ? ( // Отображаем прелоадер, если isLoading === true
+        <div className={styles['loader-container']} style={{ width, height }}>
+          <Loader size={80} fullPage={false} />
+        </div>
+      ) : error ? ( // Если есть ошибка, отображаем сообщение
         <div className={styles['error-message']} style={{ width, height }}>
           Ошибка при загрузке данных. Связь с сервером/оборудованием отсутствует.
         </div>
-      ) : (
+      ) : ( // Иначе отображаем график
         <div id={id} style={{ width, height }}>
           <Line
             ref={chartRef}

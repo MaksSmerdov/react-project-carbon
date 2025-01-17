@@ -5,7 +5,7 @@ interface KranProps {
   size?: { width: number; height: number };
   adaptiveSize?: { width: number; height: number };
   status: boolean;
-  reverseColorLogic?: boolean; // Обратная логика цвета
+  reverseColorLogic?: boolean;
   orientation?: 'horizontal' | 'vertical';
   top?: string;
   left?: string;

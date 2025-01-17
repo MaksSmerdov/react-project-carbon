@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styles from './dailyReport.module.scss';
-import ReportHeader from './components/reportHeader';
-import ReportTable from './components/reportTable';
-import { formatDataByTimeSlot, calculateTotals, hasNoData } from './utils/reportUtils';
+import ReportHeader from './components/dailyReportHeader';
+import ReportTable from './components/dailyReportTable';
+import { formatDataByTimeSlot, calculateTotals, hasNoData } from './utils/dailyReportUtils';
 import { getApiBaseUrl } from '../../../utils/apiUtils';
 
 export interface ReportData {

@@ -106,7 +106,7 @@ const ReportTable: React.FC<ReportTableProps> = ({ reportData, totals, noData, i
     <div className={styles['dynamic-report__table']}>
       {isLoading && (
         <div className={styles['loader-overlay']}>
-          <Loader fullPage={false} />
+          <Loader size={80} fullPage={false} />
         </div>
       )}
 

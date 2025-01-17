@@ -10,7 +10,7 @@ const IntervalContext = createContext<IntervalContextType | undefined>(undefined
 export const useInterval = () => {
   const context = useContext(IntervalContext);
   if (!context) {
-    throw new Error('useInterval must be used within an IntervalProvider');
+    throw new Error('useInterval должен использоваться с IntervalProvider');
   }
   return context;
 };
