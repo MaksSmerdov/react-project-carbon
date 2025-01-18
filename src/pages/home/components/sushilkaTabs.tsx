@@ -36,7 +36,11 @@ const SushilkaTabs: React.FC<SushilkaTabsProps> = ({ selectedSubTabIndex, handle
 
       <TabPanel>
         <div key={`sushilka${sushilkaNumber}-mnemo-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
-          <MnemoSushilka configKey={`sushilka${sushilkaNumber}`} title={`Сушилка №${sushilkaNumber}`} objectNumber={sushilkaNumber} />
+          <MnemoSushilka
+            configKey={`sushilka${sushilkaNumber}`}
+            title={`Сушилка №${sushilkaNumber}`}
+            objectNumber={sushilkaNumber}
+          />
         </div>
       </TabPanel>
 
@@ -50,9 +54,9 @@ const SushilkaTabs: React.FC<SushilkaTabsProps> = ({ selectedSubTabIndex, handle
         <div key={`sushilka${sushilkaNumber}-charts-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
           <IntervalProvider>
             <UniversalChart
-              id={`chart-sushilka${sushilkaNumber}`}
-              apiUrls={`${apiBaseUrl}/api/sushilka${sushilkaNumber}/data`}
-              title={`График температур сушилки №${sushilkaNumber}`}
+              id={`chart-sushilka1`}
+              apiUrls={`${apiBaseUrl}/api/sushilka1/data`}
+              title={`График температур сушилки №1`}
               yMin={-315}
               yMax={315}
               dataKey="temperatures"
@@ -63,6 +67,20 @@ const SushilkaTabs: React.FC<SushilkaTabsProps> = ({ selectedSubTabIndex, handle
               ]}
               showIntervalSelector={true}
             />
+            <UniversalChart
+              id={`chart-sushilka2`}
+              apiUrls={`${apiBaseUrl}/api/sushilka2/data`}
+              title={`График температур сушилки №2`}
+              yMin={-315}
+              yMax={315}
+              dataKey="temperatures"
+              params={[
+                { key: 'Температура в топке', label: 'В топке', unit: '°C' },
+                { key: 'Температура в камере смешения', label: 'В камере смешения', unit: '°C' },
+                { key: 'Температура уходящих газов', label: 'Уходящих газов', unit: '°C' },
+              ]}
+              showIntervalSelector={false}
+            />
           </IntervalProvider>
         </div>
       </TabPanel>
@@ -71,9 +89,9 @@ const SushilkaTabs: React.FC<SushilkaTabsProps> = ({ selectedSubTabIndex, handle
         <div key={`sushilka${sushilkaNumber}-charts-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
           <IntervalProvider>
             <UniversalChart
-              id={`chart-sushilka${sushilkaNumber}`}
-              apiUrls={`${apiBaseUrl}/api/sushilka${sushilkaNumber}/data`}
-              title={`График давления/разрежения сушилки №${sushilkaNumber}`}
+              id={`chart-sushilka1`}
+              apiUrls={`${apiBaseUrl}/api/sushilka1/data`}
+              title={`График давления/разрежения сушилки №1`}
               yMin={-20}
               yMax={30}
               dataKey="vacuums"
@@ -83,6 +101,20 @@ const SushilkaTabs: React.FC<SushilkaTabsProps> = ({ selectedSubTabIndex, handle
                 { key: 'Разрежение воздуха на разбавление', label: 'Воздух на разбавление', unit: 'кгс/м²' },
               ]}
               showIntervalSelector={true}
+            />
+            <UniversalChart
+              id={`chart-sushilka2`}
+              apiUrls={`${apiBaseUrl}/api/sushilka2/data`}
+              title={`График давления/разрежения сушилки №2`}
+              yMin={-20}
+              yMax={30}
+              dataKey="vacuums"
+              params={[
+                { key: 'Разрежение в топке', label: 'В топке', unit: 'кгс/см²' },
+                { key: 'Разрежение в камере выгрузки', label: 'В камере выгрузки', unit: 'кгс/см²' },
+                { key: 'Разрежение воздуха на разбавление', label: 'Воздух на разбавление', unit: 'кгс/м²' },
+              ]}
+              showIntervalSelector={false}
             />
           </IntervalProvider>
         </div>
