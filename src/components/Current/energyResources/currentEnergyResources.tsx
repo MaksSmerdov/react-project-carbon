@@ -31,9 +31,11 @@ const CurrentEnergyResources = () => {
 
   return (
     <div>
-      <Header title="Текущие параметры узлов учета пара" maxWidth="900px" />
+      <Header title="Текущие параметры узлов учета пара" maxWidth="100%" />
+      <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}> {/* Добавлен display: flex */}
       <TableResources title="Генерация пара" data={generationData} />
       <TableResources title="Потребление пара" data={consumptionData} />
+      </div>
     </div>
   );
 };

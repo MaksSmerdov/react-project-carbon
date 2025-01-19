@@ -35,7 +35,7 @@ ChartJS.register(
 );
 
 interface UniversalChartProps {
-  apiUrls: string | string[]; 
+  apiUrls: string | string[];
   title: string;
   yMin?: number;
   yMax?: number;
@@ -79,19 +79,19 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
   height = '400px',
   id,
   showIntervalSelector = true,
-  animationEnabled = true, 
+  animationEnabled = true,
 }) => {
   const [timeDifference, setTimeDifference] = useState<number>(0);
   const chartRef = useRef<ChartJS<'line'> | null>(null);
   const { interval } = useInterval();
   const [startTime, setStartTime] = useState(new Date(Date.now() - interval * 60 * 1000));
   const [endTime, setEndTime] = useState(new Date());
-  const { data, error, refetch, isLoading: isDataLoading } = useData(apiUrls, startTime, endTime); 
+  const { data, error, refetch, isLoading: isDataLoading } = useData(apiUrls, startTime, endTime);
   const [allHidden, setAllHidden] = useState(false);
   const [isAutoScroll, setIsAutoScroll] = useState(true);
   const [lastInteractionTime, setLastInteractionTime] = useState(Date.now());
   const [timeOffset, setTimeOffset] = useState(0);
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchServerTime().then((difference) => {
@@ -134,16 +134,7 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
   );
 
   const options = useMemo(
-    () =>
-      getChartOptions(
-        endTime.getTime(),
-        title,
-        isAutoScroll,
-        params,
-        yMin,
-        yMax,
-        animationEnabled 
-      ),
+    () => getChartOptions(endTime.getTime(), title, isAutoScroll, params, yMin, yMax, animationEnabled),
     [endTime, title, isAutoScroll, params, yMin, yMax, animationEnabled]
   );
 
@@ -151,14 +142,14 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
     setLastInteractionTime(Date.now());
     const newOffset = timeOffset + interval * 60 * 1000;
     setTimeOffset(newOffset);
-    handleBackward(startTime, endTime, setStartTime, setEndTime, setIsAutoScroll, interval); 
+    handleBackward(startTime, endTime, setStartTime, setEndTime, setIsAutoScroll, interval);
   }, [startTime, endTime, interval, timeOffset]);
-  
+
   const handleForwardWithInteraction = useCallback(() => {
     setLastInteractionTime(Date.now());
     const newOffset = Math.max(0, timeOffset - interval * 60 * 1000);
     setTimeOffset(newOffset);
-    handleForward(startTime, endTime, setStartTime, setEndTime, setIsAutoScroll, interval); 
+    handleForward(startTime, endTime, setStartTime, setEndTime, setIsAutoScroll, interval);
   }, [startTime, endTime, interval, timeOffset]);
 
   const handleReturnToCurrentWithInteraction = useCallback(() => {
@@ -171,7 +162,7 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
     if (chartRef.current) {
       const meta = chartRef.current.getDatasetMeta(index);
       meta.hidden = !meta.hidden;
-      chartRef.current.update('none'); 
+      chartRef.current.update('none');
     }
   }, []);
 
@@ -220,10 +211,12 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
 
   // Управление состоянием прелоадера
   useEffect(() => {
-    if (!isDataLoading && data.length > 0) {
-      setIsLoading(false); 
+    if (error) {
+      setIsLoading(false); // Убедитесь, что isLoading установлен в false при ошибке
+    } else if (!isDataLoading && data.length > 0) {
+      setIsLoading(false); // Устанавливаем isLoading в false, если данные загружены
     }
-  }, [isDataLoading, data]);
+  }, [isDataLoading, data, error]); // Добавляем error в зависимости useEffect
 
   return (
     <div className={styles['chart-container']}>
@@ -237,7 +230,8 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
         <div className={styles['error-message']} style={{ width, height }}>
           Ошибка при загрузке данных. Связь с сервером/оборудованием отсутствует.
         </div>
-      ) : ( // Иначе отображаем график
+      ) : (
+        // Иначе отображаем график
         <div id={id} style={{ width, height }}>
           <Line
             ref={chartRef}
