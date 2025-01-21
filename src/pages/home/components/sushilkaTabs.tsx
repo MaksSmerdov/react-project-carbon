@@ -36,10 +36,7 @@ const SushilkaTabs: React.FC<SushilkaTabsProps> = ({ selectedSubTabIndex, handle
 
       <TabPanel>
         <div key={`sushilka${sushilkaNumber}-mnemo-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
-          <MnemoSushilka
-            title={`Сушилка №${sushilkaNumber}`}
-            objectNumber={sushilkaNumber}
-          />
+          <MnemoSushilka title={`Сушилка №${sushilkaNumber}`} objectNumber={sushilkaNumber} />
         </div>
       </TabPanel>
 
@@ -53,30 +50,38 @@ const SushilkaTabs: React.FC<SushilkaTabsProps> = ({ selectedSubTabIndex, handle
         <div key={`sushilka${sushilkaNumber}-charts-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
           <IntervalProvider>
             <UniversalChart
-              id={`chart-sushilka1`}
-              apiUrls={`${apiBaseUrl}/api/sushilka1/data`}
+              id={`chart-sushilka1-temperatures`}
               title={`График температур сушилки №1`}
               yMin={-315}
               yMax={315}
-              dataKey="temperatures"
-              params={[
-                { key: 'Температура в топке', label: 'В топке', unit: '°C' },
-                { key: 'Температура в камере смешения', label: 'В камере смешения', unit: '°C' },
-                { key: 'Температура уходящих газов', label: 'Уходящих газов', unit: '°C' },
+              datasets={[
+                {
+                  apiUrl: `${apiBaseUrl}/api/sushilka1/data`,
+                  dataKey: 'temperatures',
+                  params: [
+                    { key: 'Температура в топке', label: 'В топке', unit: '°C' },
+                    { key: 'Температура в камере смешения', label: 'В камере смешения', unit: '°C' },
+                    { key: 'Температура уходящих газов', label: 'Уходящих газов', unit: '°C' },
+                  ],
+                },
               ]}
               showIntervalSelector={true}
             />
             <UniversalChart
-              id={`chart-sushilka2`}
-              apiUrls={`${apiBaseUrl}/api/sushilka2/data`}
+              id={`chart-sushilka2-temperatures`}
               title={`График температур сушилки №2`}
               yMin={-315}
               yMax={315}
-              dataKey="temperatures"
-              params={[
-                { key: 'Температура в топке', label: 'В топке', unit: '°C' },
-                { key: 'Температура в камере смешения', label: 'В камере смешения', unit: '°C' },
-                { key: 'Температура уходящих газов', label: 'Уходящих газов', unit: '°C' },
+              datasets={[
+                {
+                  apiUrl: `${apiBaseUrl}/api/sushilka2/data`,
+                  dataKey: 'temperatures',
+                  params: [
+                    { key: 'Температура в топке', label: 'В топке', unit: '°C' },
+                    { key: 'Температура в камере смешения', label: 'В камере смешения', unit: '°C' },
+                    { key: 'Температура уходящих газов', label: 'Уходящих газов', unit: '°C' },
+                  ],
+                },
               ]}
               showIntervalSelector={false}
             />
@@ -88,30 +93,38 @@ const SushilkaTabs: React.FC<SushilkaTabsProps> = ({ selectedSubTabIndex, handle
         <div key={`sushilka${sushilkaNumber}-charts-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
           <IntervalProvider>
             <UniversalChart
-              id={`chart-sushilka1`}
-              apiUrls={`${apiBaseUrl}/api/sushilka1/data`}
+              id={`chart-sushilka1-vacuums`}
               title={`График давления/разрежения сушилки №1`}
               yMin={-20}
               yMax={30}
-              dataKey="vacuums"
-              params={[
-                { key: 'Разрежение в топке', label: 'В топке', unit: 'кгс/см²' },
-                { key: 'Разрежение в камере выгрузки', label: 'В камере выгрузки', unit: 'кгс/см²' },
-                { key: 'Разрежение воздуха на разбавление', label: 'Воздух на разбавление', unit: 'кгс/м²' },
+              datasets={[
+                {
+                  apiUrl: `${apiBaseUrl}/api/sushilka1/data`,
+                  dataKey: 'vacuums',
+                  params: [
+                    { key: 'Разрежение в топке', label: 'В топке', unit: 'кгс/см²' },
+                    { key: 'Разрежение в камере выгрузки', label: 'В камере выгрузки', unit: 'кгс/см²' },
+                    { key: 'Разрежение воздуха на разбавление', label: 'Воздух на разбавление', unit: 'кгс/м²' },
+                  ],
+                },
               ]}
               showIntervalSelector={true}
             />
             <UniversalChart
-              id={`chart-sushilka2`}
-              apiUrls={`${apiBaseUrl}/api/sushilka2/data`}
+              id={`chart-sushilka2-vacuums`}
               title={`График давления/разрежения сушилки №2`}
               yMin={-20}
               yMax={30}
-              dataKey="vacuums"
-              params={[
-                { key: 'Разрежение в топке', label: 'В топке', unit: 'кгс/см²' },
-                { key: 'Разрежение в камере выгрузки', label: 'В камере выгрузки', unit: 'кгс/см²' },
-                { key: 'Разрежение воздуха на разбавление', label: 'Воздух на разбавление', unit: 'кгс/м²' },
+              datasets={[
+                {
+                  apiUrl: `${apiBaseUrl}/api/sushilka2/data`,
+                  dataKey: 'vacuums',
+                  params: [
+                    { key: 'Разрежение в топке', label: 'В топке', unit: 'кгс/см²' },
+                    { key: 'Разрежение в камере выгрузки', label: 'В камере выгрузки', unit: 'кгс/см²' },
+                    { key: 'Разрежение воздуха на разбавление', label: 'Воздух на разбавление', unit: 'кгс/м²' },
+                  ],
+                },
               ]}
               showIntervalSelector={false}
             />

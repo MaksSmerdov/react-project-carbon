@@ -9,36 +9,31 @@ export interface GenericData {
   values: GenericReading; // Произвольные параметры
 }
 
-export const useData = (apiUrls: string | string[], startTime: Date, endTime: Date) => {
-  const [data, setData] = useState<GenericData[]>([]);
+export interface DatasetConfig {
+  apiUrl: string;
+  dataKey: string;
+  params: { key: string; label: string; unit?: string }[];
+}
+
+export const useData = (configs: DatasetConfig[], startTime: Date, endTime: Date) => {
+  const [data, setData] = useState<GenericData[][]>([]);
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      // Если apiUrls — строка, преобразуем её в массив
-      const urls = Array.isArray(apiUrls) ? apiUrls : [apiUrls];
-
-      // Выполняем все запросы параллельно
-      const responses = await Promise.all(
-        urls.map(url =>
-          fetch(`${url}?start=${startTime.toISOString()}&end=${endTime.toISOString()}`)
-        )
+      const results = await Promise.all(
+        configs.map(async (config) => {
+          const response = await fetch(`${config.apiUrl}?start=${startTime.toISOString()}&end=${endTime.toISOString()}`);
+          if (!response.ok) {
+            throw new Error('Ошибка при получении данных');
+          }
+          return response.json();
+        })
       );
 
-      // Проверяем статус каждого ответа
-      const errors = responses.filter(response => !response.ok);
-      if (errors.length > 0) {
-        throw new Error('Ошибка при получении данных');
-      }
-
-      // Парсим JSON из всех ответов
-      const results: GenericData[][] = await Promise.all(responses.map(res => res.json()));
-
-      // Объединяем данные из всех API в один массив
-      const combinedData = results.flat();
-      setData(combinedData);
+      setData(results);
       setError(null); // Сбрасываем ошибку при успешном запросе
     } catch (err) {
       console.error('Ошибка при запросе данных:', err);
@@ -46,7 +41,7 @@ export const useData = (apiUrls: string | string[], startTime: Date, endTime: Da
     } finally {
       setIsLoading(false);
     }
-  }, [apiUrls, startTime, endTime]);
+  }, [configs, startTime, endTime]);
 
   // Автоматический повторный запрос при ошибке
   useEffect(() => {

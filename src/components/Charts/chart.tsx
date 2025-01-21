@@ -34,13 +34,17 @@ ChartJS.register(
   CrosshairPlugin
 );
 
+interface DatasetConfig {
+  apiUrl: string;
+  dataKey: string;
+  params: { key: string; label: string; unit?: string }[];
+}
+
 interface UniversalChartProps {
-  apiUrls: string | string[];
+  datasets: DatasetConfig[];
   title: string;
   yMin?: number;
   yMax?: number;
-  dataKey: string;
-  params: { key: string; label: string; unit?: string }[];
   width?: number | string;
   height?: number | string;
   id: string;
@@ -69,12 +73,10 @@ const fetchServerTime = async (): Promise<number> => {
 };
 
 const UniversalChart: React.FC<UniversalChartProps> = ({
-  apiUrls,
+  datasets,
   title,
   yMin,
   yMax,
-  dataKey,
-  params,
   width = '100%',
   height = '400px',
   id,
@@ -86,7 +88,7 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
   const { interval } = useInterval();
   const [startTime, setStartTime] = useState(new Date(Date.now() - interval * 60 * 1000));
   const [endTime, setEndTime] = useState(new Date());
-  const { data, error, refetch, isLoading: isDataLoading } = useData(apiUrls, startTime, endTime);
+  const { data, error, refetch, isLoading: isDataLoading } = useData(datasets, startTime, endTime);
   const [allHidden, setAllHidden] = useState(false);
   const [isAutoScroll, setIsAutoScroll] = useState(true);
   const [lastInteractionTime, setLastInteractionTime] = useState(Date.now());
@@ -110,32 +112,43 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
     setStartTime(newStartTime);
   }, [interval, timeOffset, timeDifference, getAdjustedTime]);
 
-  const processedData = useMemo(
-    () =>
-      data.map((item: GenericData) => ({
-        time: new Date(item.lastUpdated),
-        values: item[dataKey] || {},
-      })),
-    [data, dataKey]
-  );
+  const processedData = useMemo(() => {
+    return datasets.map((dataset, index) => ({
+      data:
+        data[index]?.map((item: GenericData) => ({
+          time: new Date(item.lastUpdated),
+          values: item[dataset.dataKey] || {},
+        })) || [],
+      params: dataset.params,
+    }));
+  }, [data, datasets]);
 
-  const chartData = useMemo(
-    () => ({
-      labels: processedData.map((d) => d.time),
-      datasets: params.map((param, index) => ({
+  const chartData = useMemo(() => {
+    const labels = processedData[0]?.data.map((d) => d.time) || [];
+    const datasets = processedData.flatMap((dataset, datasetIndex) =>
+      dataset.params.map((param, paramIndex) => ({
         label: param.label,
-        data: createDataWithGaps(processedData, param.key),
-        borderColor: colors[index % colors.length],
-        backgroundColor: colors[index % colors.length],
+        data: createDataWithGaps(dataset.data, param.key),
+        borderColor: colors[(datasetIndex * dataset.params.length + paramIndex) % colors.length],
+        backgroundColor: colors[(datasetIndex * dataset.params.length + paramIndex) % colors.length],
         spanGaps: false,
-      })),
-    }),
-    [processedData, params]
-  );
+      }))
+    );
+    return { labels, datasets };
+  }, [processedData]);
 
   const options = useMemo(
-    () => getChartOptions(endTime.getTime(), title, isAutoScroll, params, yMin, yMax, animationEnabled),
-    [endTime, title, isAutoScroll, params, yMin, yMax, animationEnabled]
+    () =>
+      getChartOptions(
+        endTime.getTime(),
+        title,
+        isAutoScroll,
+        datasets.flatMap((d) => d.params),
+        yMin,
+        yMax,
+        animationEnabled
+      ),
+    [endTime, title, isAutoScroll, datasets, yMin, yMax, animationEnabled]
   );
 
   const handleBackwardWithInteraction = useCallback(() => {
@@ -209,29 +222,27 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
     return () => clearInterval(intervalId);
   }, [lastInteractionTime, isAutoScroll, interval, setStartTime, setEndTime, setIsAutoScroll]);
 
-  // Управление состоянием прелоадера
   useEffect(() => {
     if (error) {
-      setIsLoading(false); // Убедитесь, что isLoading установлен в false при ошибке
+      setIsLoading(false);
     } else if (!isDataLoading && data.length > 0) {
-      setIsLoading(false); // Устанавливаем isLoading в false, если данные загружены
+      setIsLoading(false);
     }
-  }, [isDataLoading, data, error]); // Добавляем error в зависимости useEffect
+  }, [isDataLoading, data, error]);
 
   return (
     <div className={styles['chart-container']}>
       {showIntervalSelector && <IntervalSelector />}
 
-      {isLoading ? ( // Отображаем прелоадер, если isLoading === true
+      {isLoading ? (
         <div className={styles['loader-container']} style={{ width, height }}>
           <Loader size={80} fullPage={false} />
         </div>
-      ) : error ? ( // Если есть ошибка, отображаем сообщение
+      ) : error ? (
         <div className={styles['error-message']} style={{ width, height }}>
           Ошибка при загрузке данных. Связь с сервером/оборудованием отсутствует.
         </div>
       ) : (
-        // Иначе отображаем график
         <div id={id} style={{ width, height }}>
           <Line
             ref={chartRef}
