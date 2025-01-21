@@ -18,13 +18,14 @@ export const colors = [
 ];
 
 export const getChartOptions = (
+  startTime: number,
   endTime: number,
   title: string,
   isAutoScroll: boolean,
   params: { key: string; label: string; unit?: string }[],
   yMin?: number,
   yMax?: number,
-  animationEnabled: boolean = true // Новый параметр для управления анимацией
+  animationEnabled: boolean = true
 ): ChartOptions<'line'> => ({
   responsive: true,
   maintainAspectRatio: false,
@@ -106,21 +107,25 @@ export const getChartOptions = (
   scales: {
     x: {
       type: 'time',
+      max: isAutoScroll ? endTime + 30 * 1000 : endTime,
       time: {
         unit: 'minute',
-        displayFormats: {
-          minute: 'HH:mm',
-        },
+        displayFormats: { minute: 'HH:mm' },
       },
       ticks: {
+        source: 'auto', 
+        autoSkip: false,
         maxTicksLimit: 20,
+        sampleSize: 10, 
       },
-      max: isAutoScroll ? endTime + 30 * 1000 : endTime,
+      grid: {
+        display: true, 
+      }
     },
     y: {
-      beginAtZero: true,
-      min: yMin,
-      max: yMax,
+      beginAtZero: yMin === undefined,
+      min: yMin ?? undefined,
+      max: yMax ?? undefined,
     },
   },
   elements: {

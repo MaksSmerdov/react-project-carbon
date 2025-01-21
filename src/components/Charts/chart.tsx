@@ -124,22 +124,32 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
   }, [data, datasets]);
 
   const chartData = useMemo(() => {
-    const labels = processedData[0]?.data.map((d) => d.time) || [];
+    // Генерируем метки вручную, если данных нет
+    const labels =
+      processedData[0]?.data.length > 0
+        ? processedData[0].data.map((d) => d.time)
+        : Array.from(
+            { length: 10 },
+            (_, i) => new Date(startTime.getTime() + (i * (endTime.getTime() - startTime.getTime())) / 10)
+          );
+
     const datasets = processedData.flatMap((dataset, datasetIndex) =>
       dataset.params.map((param, paramIndex) => ({
         label: param.label,
-        data: createDataWithGaps(dataset.data, param.key),
+        data: dataset.data.length > 0 ? createDataWithGaps(dataset.data, param.key) : labels.map(() => null), // Пустые данные
         borderColor: colors[(datasetIndex * dataset.params.length + paramIndex) % colors.length],
         backgroundColor: colors[(datasetIndex * dataset.params.length + paramIndex) % colors.length],
         spanGaps: false,
       }))
     );
+
     return { labels, datasets };
-  }, [processedData]);
+  }, [processedData, startTime, endTime]);
 
   const options = useMemo(
     () =>
       getChartOptions(
+        startTime.getTime(),
         endTime.getTime(),
         title,
         isAutoScroll,
@@ -148,9 +158,8 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
         yMax,
         animationEnabled
       ),
-    [endTime, title, isAutoScroll, datasets, yMin, yMax, animationEnabled]
+    [startTime, endTime, title, isAutoScroll, datasets, yMin, yMax, animationEnabled]
   );
-
   const handleBackwardWithInteraction = useCallback(() => {
     setLastInteractionTime(Date.now());
     const newOffset = timeOffset + interval * 60 * 1000;
@@ -203,7 +212,7 @@ const UniversalChart: React.FC<UniversalChartProps> = ({
       } else {
         refetch();
       }
-    }, 1000);
+    }, 10000);
 
     return () => clearInterval(intervalId);
   }, [isAutoScroll, interval, refetch, timeOffset, timeDifference, getAdjustedTime]);

@@ -21,11 +21,14 @@ export const useData = (configs: DatasetConfig[], startTime: Date, endTime: Date
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = useCallback(async () => {
+    const abortController = new AbortController();
     setIsLoading(true);
     try {
       const results = await Promise.all(
         configs.map(async (config) => {
-          const response = await fetch(`${config.apiUrl}?start=${startTime.toISOString()}&end=${endTime.toISOString()}`);
+          const response = await fetch(`${config.apiUrl}?start=${startTime.toISOString()}&end=${endTime.toISOString()}`,  { 
+            signal: abortController.signal 
+          });
           if (!response.ok) {
             throw new Error('Ошибка при получении данных');
           }
@@ -41,6 +44,7 @@ export const useData = (configs: DatasetConfig[], startTime: Date, endTime: Date
     } finally {
       setIsLoading(false);
     }
+    return () => abortController.abort();
   }, [configs, startTime, endTime]);
 
   // Автоматический повторный запрос при ошибке
