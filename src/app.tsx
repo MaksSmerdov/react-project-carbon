@@ -13,6 +13,7 @@ const App: React.FC = () => {
         {/* Стартовая страница */}
         <Route path="/" element={<HomePage />} />
 
+
         {/* Остальные маршруты */}
         <Route path="/currentParam-sushilka1" element={<CurrentParameterSushilka1 />} />
         <Route path="/currentParam-sushilka2" element={<CurrentParameterSushilka2 />} />
