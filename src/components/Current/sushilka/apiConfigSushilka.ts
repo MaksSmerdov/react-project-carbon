@@ -1,4 +1,4 @@
-import { getApiBaseUrl } from "../utils/apiUtils";
+import { getApiBaseUrl } from "../../../utils/apiUtils";
 
 export interface ApiConfig {
   apiUrl: string; // URL для API

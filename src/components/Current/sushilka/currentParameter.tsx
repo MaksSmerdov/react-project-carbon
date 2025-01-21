@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../Common/Header/header';
 import Table from '../../Common/Table/table';
 import styles from './currentParameter.module.scss';
-import { ApiConfig } from '../../../configs/apiConfigSushilka';
+import { ApiConfig } from './apiConfigSushilka';
 import Loader from '../../Common/Preloader/preloader';
 
 interface CurrentParameterProps {

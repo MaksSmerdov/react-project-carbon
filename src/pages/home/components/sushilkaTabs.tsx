@@ -3,7 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import styles from '../homePage.module.scss';
 import MnemoSushilka from '../../../components/Mnemo/sushilka/mnemoSushilka';
 import CurrentParameter from '../../../components/Current/sushilka/currentParameter';
-import { apiConfigs } from '../../../configs/apiConfigSushilka';
+import { apiConfigs } from '../../../components/Current/sushilka/apiConfigSushilka';
 import UniversalChart from '../../../components/Charts/chart';
 import { IntervalProvider } from '../../../components/Charts/context/intervalContext';
 import { getApiBaseUrl } from '../../../utils/apiUtils';
@@ -37,7 +37,6 @@ const SushilkaTabs: React.FC<SushilkaTabsProps> = ({ selectedSubTabIndex, handle
       <TabPanel>
         <div key={`sushilka${sushilkaNumber}-mnemo-${selectedSubTabIndex}`} className={styles['sub-tab-content']}>
           <MnemoSushilka
-            configKey={`sushilka${sushilkaNumber}`}
             title={`Сушилка №${sushilkaNumber}`}
             objectNumber={sushilkaNumber}
           />

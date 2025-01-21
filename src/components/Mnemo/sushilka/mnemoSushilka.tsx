@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from './mnemoSushilka.module.scss';
-import { apiConfigs } from '../../../configs/apiConfigSushilka';
 import useMnemoSushilka from './hooks/useMnemoSushilka';
 import CustomModal from '../../Common/Modal/modal';
 import DocumentationAccordion from '../../Common/Accordion/accordion';
@@ -11,22 +10,23 @@ import Loader from '../../Common/Preloader/preloader';
 import ControlButtons from '../../Common/ControlButtons/controlButtons';
 import { staticLabels, tooltippedParams, gorelkaGifs, getTooltipContent, renderGIF } from './utils/mnemoUtils';
 import Header from '../../Common/Header/header';
+import { getApiBaseUrl } from '../../../utils/apiUtils';
 
-interface MnemoSushilkaProps<K extends keyof typeof apiConfigs> {
-  configKey: K;
+interface MnemoSushilkaProps {
   title: string;
   objectNumber: number;
   showLoading?: boolean; // Новый пропс для управления прелоудером
 }
 
-const MnemoSushilka = <K extends keyof typeof apiConfigs>({
-  configKey,
+const apiBaseUrl = getApiBaseUrl(); // Получаем базовый URL
+
+const MnemoSushilka = ({
   title,
   objectNumber,
   showLoading = false, // Значение по умолчанию false
-}: MnemoSushilkaProps<K>) => {
+}: MnemoSushilkaProps) => {
   const { data, tooltipsEnabled, toggleTooltips, animationsRunning, isGif2Visible, isGorelkaGifsVisible } =
-    useMnemoSushilka({ config: apiConfigs[configKey], objectNumber });
+    useMnemoSushilka({ url: `${apiBaseUrl}/api/sushilka${objectNumber}-data`, objectNumber });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 

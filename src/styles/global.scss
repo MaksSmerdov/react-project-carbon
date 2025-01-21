@@ -4,7 +4,7 @@
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 ::-webkit-scrollbar {
@@ -22,7 +22,7 @@
 }
 
 body {
-  font-family: "Bitter", sans-serif;
+  font-family: 'Bitter', sans-serif;
   font-size: 16px;
   color: vars.$carbon;
   background-color: vars.$white;

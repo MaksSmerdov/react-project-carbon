@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Header from '../../Common/Header/header';
 import TableResources from '../../Common/Table/tableEnergyResources';
-import { fetchEnergyData, TableRow } from '../../../configs/apiConfigEnergyResources'; // Импортируем функции и интерфейсы
+import { fetchEnergyData, TableRow } from './apiConfigEnergyResources'; // Импортируем функции и интерфейсы
 
 const CurrentEnergyResources = () => {
   const [generationData, setGenerationData] = useState<TableRow[]>([]);

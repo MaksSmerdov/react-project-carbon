@@ -90,8 +90,7 @@
     left: 95.8%;
 
     & img {
-      width: 40px;
-      height: 90px;
+      @include mixins.size(40px, 90px);
     }
   }
 
@@ -100,8 +99,7 @@
     left: 88.1%;
 
     & img {
-      width: 65px;
-      height: 60px;
+      @include mixins.size(65px, 60px);
       animation: rotate 1s infinite linear;
       animation-play-state: paused; /* Изначально анимация приостановлена */
     }
@@ -112,8 +110,7 @@
     left: 11.3%;
 
     & img {
-      width: 35px;
-      height: 30px;
+      @include mixins.size(35px, 30px);
       animation: rotate 1s infinite linear;
       animation-play-state: paused; /* Изначально анимация приостановлена */
     }
@@ -271,6 +268,89 @@
   left: 1%;
 }
 
+
+
+// @media (max-width: 1700px) {
+//   .mnemo {
+//     width: 1200px;
+//     position: relative;
+
+//     &__img {
+//       width: 1200px;
+//     }
+
+//     &__param {
+//       &-text {
+//         @include mixins.text-style(14px, 14px, 600, vars.$blue);
+//       }
+
+//       &-naimenov {
+//         @include mixins.text-style(14px, 14px, 600, vars.$blue);
+//       }
+
+//       &-descr {
+//         @include mixins.text-style(14px, 14px, 600, vars.$hunter-green);
+//       }
+//     }
+
+//     &__gif {
+//       &-1 {
+//         top: 50.9%;
+//         left: 12%;
+//       }
+
+//       &-2 {
+//         left: 95.8%;
+//         top: 8.5%;
+//         & img {
+//           @include mixins.size(30px, 60px)
+//         }
+//       }
+
+//       &-3 {
+//         top: 65%;
+//         left: 88.4%;
+
+//         & img {
+//           @include mixins.size(40px, 40px)
+//         }
+//       }
+
+//       &-4 {
+//         top: 70.8%;
+//         left: 11.3%;
+
+//         & img {
+//           @include mixins.size(25px, 25px)
+
+//         }
+//       }
+
+//       &-5 {
+//         top: 15.8%;
+//         left: 18.6%;
+//         & img {
+//           width: 50px;
+//         }
+//       }
+
+//       &-6 img,
+//       &-8 img {
+//         width: 56px;
+//         height: 61px;
+//       }
+
+//       &-7 img {
+//         width: 20px;
+//       }
+//     }
+//   }
+
+  
+
+  
+// }
+
 @media (max-width: 1280px) {
   .mnemo {
     width: 976px;
@@ -303,8 +383,7 @@
       &-2 {
         left: 95.7%;
         & img {
-          width: 26px;
-          height: 55px;
+          @include mixins.size(26px, 55px);
         }
       }
 
@@ -313,8 +392,7 @@
         left: 88.2%;
 
         & img {
-          width: 37px;
-          height: 35px;
+          @include mixins.size(37px, 35px);
         }
       }
 
@@ -323,8 +401,7 @@
         left: 11.4%;
 
         & img {
-          width: 20px;
-          height: 18px;
+          @include mixins.size(20px, 18px);
         }
       }
 
@@ -338,8 +415,7 @@
 
       &-6 img,
       &-8 img {
-        width: 56px;
-        height: 61px;
+        @include mixins.size(56px, 61px);
       }
 
       &-7 img {
