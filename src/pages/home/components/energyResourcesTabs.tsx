@@ -111,7 +111,7 @@ const EnergyResourcesTabs: React.FC<EnergyResourcesTabsProps> = ({ selectedSubTa
                   apiUrl: `${apiBaseUrl}/api/DD569/data`,
                   dataKey: 'data',
                   params: [
-                    { key: 'Давление DD569', label: 'От к.265 - к.10в1', unit: 'MPa' },
+                    { key: 'Давление DD569', label: 'От к.265 до к.10в1', unit: 'MPa' },
                   ],
                 },
                 {
